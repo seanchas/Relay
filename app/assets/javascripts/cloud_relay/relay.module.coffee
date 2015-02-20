@@ -10,6 +10,10 @@ mixin =
     @constructor.queries[name]()
 
 
+  setQueryParams: (nextQueryParams) ->
+    @queryParams = Immutable.Map(@queryParams).mergeDeep(nextQueryParams).toJS()
+
+
   componentWillMount: ->
     @render__withoutCloudRelayMixin = @render
     @render = @render__withCloudRelayMixin
@@ -24,9 +28,6 @@ mixin =
     @render__withoutCloudRelayMixin()
 
 
-
-
-
 # Exports
 #
 module.exports =
@@ -34,7 +35,7 @@ module.exports =
 
     if descriptor.statics and descriptor.statics.queries
       Immutable.Seq(descriptor.statics.queries).forEach (query, name) ->
-
+        descriptor.statics.queries[name] = query
 
     (descriptor.mixins ||= []).push(mixin)
     React.createClass(descriptor)
