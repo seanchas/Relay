@@ -1,0 +1,13 @@
+<div data-react-mount-point>
+</div>
+
+<script charset="utf-8">
+  $(function() {
+
+    var mountPoint  = document.querySelector('[data-react-mount-point]')
+    var component   = require('components/welcome')
+
+    React.render(React.createElement(component), mountPoint)
+
+  });
+</script>
